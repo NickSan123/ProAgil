@@ -1,6 +1,50 @@
+# .Net core project
 bin
 obj
 .vs
-.vscode
-.DS_Store
 
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+/ProAgil-App/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+
+# IDEs and editors
+/ProAgil-App/.idea
+/ProAgil-App.project
+/ProAgil-App.classpath
+/ProAgil-App.c9/
+/ProAgil-App*.launch
+/ProAgil-App.settings/
+/ProAgil-App*.sublime-workspace
+
+# IDE - VSCode
+/ProAgil-App.vscode/*
+/ProAgil-App!.vscode/settings.json
+/ProAgil-App!.vscode/tasks.json
+/ProAgil-App!.vscode/launch.json
+/ProAgil-App!.vscode/extensions.json
+/ProAgil-App.history/*
+
+# misc
+/ProAgil-App/.sass-cache
+/ProAgil-App/connect.lock
+/ProAgil-App/coverage
+/ProAgil-App/libpeerconnection.log
+/ProAgil-Appnpm-debug.log
+/ProAgil-Appyarn-error.log
+/ProAgil-Apptestem.log
+/ProAgil-App/typings
+
+# System Files
+/ProAgil-App.DS_Store
+/ProAgil-AppThumbs.db
