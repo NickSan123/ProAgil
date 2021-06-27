@@ -8,13 +8,19 @@ import { Component, OnInit, resolveForwardRef } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
  
-  eventos: any;
- 
+  eventos: any = [];
+  imagemLargura: number = 50;
+  imagemMargem: number = 2;
+  mostrarImg = false;
+  filtroLista = "";
   constructor(private http: HttpClient) { }
 
   ngOnInit() 
   {
     this.getEventos();
+  }
+  alternarImagem(){
+    this.mostrarImg = !this.mostrarImg;
   }
   getEventos()
   {
