@@ -3,9 +3,7 @@
     <input type="text" class="form-control"  placeholder="Buscar"
     [(ngModel)]="filtroLista">
   </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-outline-success mb-3">Buscar</button>
-  </div>
+  
 </div>
 <h3>Filtro: {{filtroLista}}</h3>
 <table class="table table-striped">
@@ -22,7 +20,7 @@
     <th>Opções</th>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
-    <tr *ngFor="let evento of eventos">
+    <tr *ngFor="let evento of eventosFIltrados">
       <td>
         <img *ngIf="mostrarImg"
         src="http://localhost:5000/img/{{evento.imagemURL}}"
