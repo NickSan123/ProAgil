@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,34 +8,33 @@ namespace ProAgil.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventoController : ControllerBase
+    public class PalestranteController : ControllerBase
     {
         public readonly IProAgilRepository _repo;
-        public EventoController(IProAgilRepository repo)
+
+        public PalestranteController(IProAgilRepository repo)
         {
             _repo = repo;
         }
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _repo.GetAllEventoAsync(true);
+                var results = await _repo.GetAllEPalestrantesAsync(true);
                 return Ok(results);
             }
             catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou "+ ex +"\n "+DateTime.Now);
+                return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou "+ ex +"\n ");
             }
         }
-
-        [HttpGet("{EventoId}")]
-        public async Task<IActionResult> Get(int EventoId)
+        [HttpGet("{PalestranteID}")]
+        public async Task<IActionResult> Get(int PalestranteID)
         {
             try
             {
-                var results = await _repo.GetEventoAsyncById(EventoId,true);
+                var results = await _repo.GetEventoAsyncById(PalestranteID,true);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -44,13 +42,12 @@ namespace ProAgil.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou");
             }
         }
-
-        [HttpGet("getByTema/{tema}")]
-        public async Task<IActionResult> Get(string tema)
+        [HttpGet("getByNome/{nome}")]
+        public async Task<IActionResult> Get(string nome)
         {
             try
             {
-                var results = await _repo.GetAllEventoAsyncByTema(tema,true);
+                var results = await _repo.GetAllEPalestrantesAsyncByNome(nome,true);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -58,16 +55,15 @@ namespace ProAgil.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou");
             }
         }
-
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(Palestrante model)
         {
             try
             {
                 _repo.Add(model);
                 if(await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/palestrante/{model.Id}", model);
                 }
                 return Ok();
             }
@@ -76,22 +72,21 @@ namespace ProAgil.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou "+ ex);
             }
         }
-
         //put
         [HttpPut]
-        public async Task<IActionResult> Put(int EventoID, Evento model)
+        public async Task<IActionResult> Put(int PalestranteID, Palestrante model)
         {
             try
             {
-                var evento = await _repo.GetEventoAsyncById(EventoID, true);
+                var palestrante = await _repo.GetEPalestrantesAsyncById(PalestranteID, true);
                 
-                if(evento == null) return NotFound();
+                if(palestrante == null) return NotFound();
 
                 _repo.Update(model);
 
                 if(await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/palestrante/{model.Id}", model);
                 }
                 return Ok();
             }
@@ -100,15 +95,14 @@ namespace ProAgil.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Banco de dados falhou "+ ex);
             }
         }
-        
         [HttpDelete]
-        public async Task<IActionResult> Delete(int EventoID)
+        public async Task<IActionResult> Delete(int PalestranteID)
         {
             try
             {
-                var evento = await _repo.GetEventoAsyncById(EventoID, false);
-                _repo.Update(evento);
-                if(evento == null) return NotFound();
+                var palestrante = await _repo.GetEPalestrantesAsyncById(PalestranteID, false);
+                _repo.Update(palestrante);
+                if(palestrante == null) return NotFound();
 
                 if(await _repo.SaveChangesAsync())
                 {

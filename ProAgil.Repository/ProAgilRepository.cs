@@ -41,7 +41,7 @@ namespace ProAgil.Repository
                     .Include(pe => pe.PalestrantesEventos)
                     .ThenInclude(p => p.Palestrantes);
                 }
-                query = query.OrderByDescending(c => c.DataEvento);
+                query = query.AsNoTracking().OrderByDescending(c => c.DataEvento);
 
             return await query.ToArrayAsync();
         }
@@ -58,7 +58,7 @@ namespace ProAgil.Repository
                 .Include(pe => pe.PalestrantesEventos)
                 .ThenInclude(p => p.Palestrantes);
             }
-            query = query.OrderByDescending(c => c.DataEvento)
+            query = query.AsNoTracking().OrderByDescending(c => c.DataEvento)
             .Where(c => c.Tema.ToLower().Contains(tema.ToLower()));
                 query = query.Where(c => c.Tema.ToLower().Contains(tema.ToLower()));
 
@@ -76,7 +76,7 @@ namespace ProAgil.Repository
                 .Include(pe => pe.PalestrantesEventos)
                 .ThenInclude(p => p.Palestrantes);
             }
-            query = query.OrderByDescending(c => c.DataEvento)
+            query = query.AsNoTracking().OrderByDescending(c => c.DataEvento)
             .Where(c => c.Id == EventoId);
 
             return await query.FirstOrDefaultAsync();
@@ -93,7 +93,7 @@ namespace ProAgil.Repository
                 .Include(pe => pe.PalestrantesEventos)
                 .ThenInclude(e => e.Eventos);
             }
-            query = query.OrderBy(c => c.Nome);
+            query = query.AsNoTracking().OrderBy(c => c.Nome);
 
             return await query.ToArrayAsync();
         }
@@ -108,7 +108,7 @@ namespace ProAgil.Repository
                 .Include(pe => pe.PalestrantesEventos)
                 .ThenInclude(e => e.Eventos);
             }
-            query = query.OrderBy(c => c.Nome)
+            query = query.AsNoTracking().OrderBy(c => c.Nome)
             .Where(c => c.Id ==PalestranteID);
 
             return await query.FirstOrDefaultAsync();
@@ -124,7 +124,7 @@ namespace ProAgil.Repository
                 .Include(pe => pe.PalestrantesEventos)
                 .ThenInclude(p => p.Eventos);
             }
-            query = query.Where(c => c.Nome.ToLower().Contains(nome.ToLower()));
+            query = query.AsNoTracking().Where(c => c.Nome.ToLower().Contains(nome.ToLower()));
 
             return await query.ToArrayAsync();
         }
